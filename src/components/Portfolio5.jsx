@@ -225,7 +225,6 @@ const Portfolio = () => {
                     </section> */}
                     <Contact onSubmit={handleSubmit} />
 
-
                     <Footer />
                 </div>
 
