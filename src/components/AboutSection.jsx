@@ -1,4 +1,5 @@
 import React from 'react';
+import AboutImage from '../assets/About.jpg';
 
 const AboutSection = () => {
   return (
@@ -7,10 +8,10 @@ const AboutSection = () => {
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="md:w-5/12 mb-8 md:mb-0">
             <img
-              src="src/components/About.jpg"
+              src={AboutImage}
               alt="About Bhavesh"
               className="rounded-lg w-full h-auto object-cover shadow-lg"
-              style={{ maxHeight: '85vh' }} // Limit image height
+              style={{ maxHeight: '85vh' }}
             />
           </div>
           <div className="md:w-6/12">

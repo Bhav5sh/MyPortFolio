@@ -5,6 +5,8 @@ import SkillsSection from './SkillsSection';
 import ProjectSection1 from './ProjectSection1';
 import Footer from './Footer';
 import ExperienceSection from './ExperienceSection';
+import ProfilePic from '../assets/Profile.jpg';
+
 // import Contact from './Contact'; 
 const Portfolio = () => {
     const [darkMode, setDarkMode] = useState(() => {
@@ -142,7 +144,7 @@ const Portfolio = () => {
                                 </div>
                             </div>
                             <div className="md:w-1/2">
-                                <img src="src\components\Profile.jpg" alt="Profile" className="rounded-full w-full max-w-md mx-auto" />
+                                <img src={ProfilePic} alt="Profile" className="rounded-full w-full max-w-md mx-auto" />
                             </div>
                         </div>
                     </section>
