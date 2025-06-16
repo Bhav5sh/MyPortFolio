@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Sun, Moon, Linkedin, Mail, Menu, X, ChevronLeft, ChevronRight, ArrowUp, ExternalLink } from 'lucide-react';
-import AboutSection from './Aboutsection';
+import AboutSection from './AboutSection';
 import SkillsSection from './SkillsSection';
 import ProjectSection1 from './ProjectSection1';
 import Footer from './Footer';
 import ExperienceSection from './ExperienceSection';
-import Contact from './Contact'; 
+// import Contact from './Contact'; 
 const Portfolio = () => {
     const [darkMode, setDarkMode] = useState(() => {
         const savedMode = localStorage.getItem('darkMode');
@@ -203,7 +203,7 @@ const Portfolio = () => {
                         </div>
                     </section>
 
-                    {/* <section id="contact" className="min-h-screen p-8">
+                    <section id="contact" className="min-h-screen p-8">
                         <h2 className="text-3xl font-bold mb-8 text-center">Contact Me</h2>
                         <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
                             <div className="mb-4">
@@ -222,8 +222,8 @@ const Portfolio = () => {
                                 Send Message
                             </button>
                         </form>
-                    </section> */}
-                    <Contact onSubmit={handleSubmit} />
+                    </section>
+                    {/* <Contact onSubmit={handleSubmit} /> */}
 
                     <Footer />
                 </div>

@@ -1,6 +1,6 @@
 // Contact.js
 import React, { useState } from 'react';
-import { Send } from 'lucide-react';
+import emailjs from "emailjs-com";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
