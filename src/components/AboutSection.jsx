@@ -3,10 +3,14 @@ import AboutImage from '../assets/About.jpg';
 
 const AboutSection = () => {
   return (
-    <section id="about" className="min-h-screen p-8 bg-gray-100 dark:bg-gray-800 flex items-center">
+    <section
+      id="about"
+      className="min-h-screen p-8 bg-indigo-50 dark:bg-gray-800 transition-colors duration-300 flex items-center"
+    >
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="md:w-5/12 mb-8 md:mb-0">
+          {/* Image - hidden on small screens */}
+          <div className="hidden md:block md:w-5/12 mb-8 md:mb-0">
             <img
               src={AboutImage}
               alt="About Bhavesh"
@@ -14,6 +18,8 @@ const AboutSection = () => {
               style={{ maxHeight: '85vh' }}
             />
           </div>
+
+          {/* Text Section */}
           <div className="md:w-6/12">
             <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">About Me</h2>
             <div className="space-y-6 text-gray-600 dark:text-gray-200 text-lg">

@@ -1,97 +1,108 @@
-// Contact.js
-import React, { useState } from 'react';
-import emailjs from "emailjs-com";
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
+import toast from 'react-hot-toast';
 
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [status, setStatus] = useState('');
+const ContactForm = () => {
+  const form = useRef();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const response = await fetch('http://localhost:5000/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
 
-      if (response.ok) {
-        setStatus('Message sent successfully!');
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        throw new Error('Failed to send message');
-      }
-    } catch (error) {
-      setStatus('Error sending message. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    emailjs
+      .sendForm(
+        'service_iwz293w',
+        'template_dfjh55h',
+        form.current,
+        'HPP30q12kz9C0blXi'
+      )
+      .then(
+        () => {
+          toast.success('Message sent successfully! 📤', { duration: 5000 });
+          form.current.reset();
+        },
+        (error) => {
+          toast.error('Failed to send message ❌', { duration: 7000 });
+          console.error('Error:', error.text);
+        }
+      );
   };
 
   return (
-    <section id="contact" className="py-16 bg-gray-100 dark:bg-gray-800">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">Contact Me</h2>
-        <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
-          <div className="mb-6">
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Your Email"
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Your Message"
-              rows="5"
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            ></textarea>
-          </div>
+    <section
+      id="contact"
+      className="min-h-screen p-8 bg-gradient-to-r from-purple-100 to-blue-100 dark:bg-none dark:bg-gray-900 transition-colors duration-300"
+    >
+      <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white">
+        Contact Me
+      </h2>
+
+      <form
+        ref={form}
+        onSubmit={sendEmail}
+        className="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg space-y-6 transition-all"
+      >
+        <div>
+          <label
+            htmlFor="name"
+            className="block mb-1 font-semibold text-gray-700 dark:text-gray-200"
+          >
+            Name
+          </label>
+          <input
+            type="text"
+            name="from_name"
+            id="name"
+            placeholder="Your Name"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-white"
+            required
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="email"
+            className="block mb-1 font-semibold text-gray-700 dark:text-gray-200"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            name="from_email"
+            id="email"
+            placeholder="Your Email"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-white"
+            required
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="message"
+            className="block mb-1 font-semibold text-gray-700 dark:text-gray-200"
+          >
+            Message
+          </label>
+          <textarea
+            name="message"
+            id="message"
+            rows="4"
+            placeholder="Your Message"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-white"
+            required
+          ></textarea>
+        </div>
+
+        <div className="text-left">
           <button
             type="submit"
-            disabled={isSubmitting}
-            className="flex items-center justify-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors disabled:bg-blue-400"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-all"
           >
-            {isSubmitting ? 'Sending...' : 'Send Message'}
-            <Send className="ml-2 h-4 w-4" />
+            Send Message
           </button>
-          {status && <p className="mt-4 text-center">{status}</p>}
-        </form>
-      </div>
+        </div>
+      </form>
     </section>
   );
 };
 
-export default Contact;
+export default ContactForm;
